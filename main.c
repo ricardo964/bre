@@ -2,6 +2,7 @@
 #include <stdint.h>
 #include "include/lexer.h"
 #include "include/view_string.h"
+#include "include/parser.h"
 
 #define MAX_TOKENS 256
 
@@ -20,22 +21,29 @@ int main(uint32_t argv, char **args)
     token_list *list = create_token_list(MAX_TOKENS);
     tokenizer(list, expresion);
 
-    for (uint64_t index = 0; index < list->len; index++)
-    {
-        if (list->value[index].lexeme == NULL)
-        {
-            printf(
-                "token >> (%d)\n",
-                list->value[index].type);
-            continue;
-        }
 
-        printf(
-            "token >> (%s, %d)\n",
-            list->value[index].lexeme->value,
-            list->value[index].type);
-    }
+    // for (uint64_t index = 0; index < list->len; index++)
+    // {
+    //     if (list->value[index].lexeme == NULL)
+    //     {
+    //         printf(
+    //             "token >> (%d)\n",
+    //             list->value[index].type);
+    //         continue;
+    //     }
 
+    //     printf(
+    //         "token >> (%s, %d)\n",
+    //         list->value[index].lexeme->value,
+    //         list->value[index].type);
+    // }
+
+    // free expresion string
+    free_string(expresion);
+
+    parse(list);
+
+    // free memory
     free_string(expresion);
     free_token_list(list);
 

@@ -52,7 +52,8 @@ string sub_string(string s, uint64_t start, uint64_t end)
         return NULL;
     };
 
-    strncpy(new_s->value, s->value + start, capacity);
+    strncpy(new_s->value, s->value + start, capacity - 1);
+    new_s->value[capacity - 1] = '\0';
 
     return new_s;
 }

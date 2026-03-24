@@ -34,11 +34,12 @@ void add_token(token_list *l, string lexeme, token_type type)
     l->len++;
 }
 
-
 void free_token_list(token_list *l)
 {
     for (uint64_t index = 0; index < l->len; index++)
-        if (l->value->lexeme != NULL) free_string(l->value->lexeme);
+        if (l->value[index].lexeme != NULL) {
+            free_string(l->value[index].lexeme);
+        }
     free(l->value);
     free(l);
 }
@@ -57,7 +58,7 @@ void tokenizer(token_list *l, string source)
         {
             do
             {
-                if (end == source->len) break;
+                if (end > source->len - 1) break;
                 end++;
                 character = get_character(source, end);
                 // border character
